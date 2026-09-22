@@ -4,8 +4,10 @@ import pygame
 import time
 import subprocess
 
-mp_face_detection = mp.solutions.face_detection #Shortening the face detection model name
-mp_hands = mp.solutions.hands # shortening the hand detection model name
+
+
+mp_face_detection = mp.solutions.face_detection 
+mp_hands = mp.solutions.hands  
 
 #Helper functions that draw the lines and dots around the faces and hands
 mp_drawing = mp.solutions.drawing_utils 
@@ -14,12 +16,10 @@ mp_drawing_styles = mp.solutions.drawing_styles
 
 cap = cv2.VideoCapture(0)
 
-with mp_hands.Hands(model_complexis=0,
+with mp_hands.Hands(model_complexity=0,
                     min_detection_confidence=0.5,
                     min_tracking_confidence=0.5) as hands, \
-                mp_face_detection.FaceDetection(model_selection=0, min_detection_confidence=0.5)
-
-as face_detection:
+                mp_face_detection.FaceDetection(model_selection=0, min_detection_confidence=0.5) as face_detection:
     while cap.isOpened():
         success, image = cap.read()
         if not success:
@@ -70,6 +70,12 @@ as face_detection:
         status_text = "OVERLAP!" if overlap else "No overlap"
         status_color = (0, 0, 255) if overlap else (0, 255, 0)
         cv2.putText(image, status_text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, status_color, 2)
+
+
+        cv2.imshow('MediaPipe Hands + face overlap', image)
+        if cv2.waitKey(5) & 0xFF == 27:
+            break
+cap.release()
        
 
 
