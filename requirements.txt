@@ -1,7 +1,6 @@
 matplotlib==3.9.4
-mediapipe==1.0.1
+mediapipe==0.10.9
 numpy==2.0.2
 opencv-contrib-python==5.0.0.93
-opencv-python==5.0.0.93
-pycparser==2.23
+opencv-python-headless==5.0.0.93
 pygame==2.6.1
