@@ -58,7 +58,19 @@ as face_detection:
                         mp_hands.HAND_CONNECTIONS,
                         mp_drawing_styles.get_default_hand_landmarks_style(),
                         mp_drawing_styles.get_default_hand_connections_style())
-                
+                if face_box is not None:
+                    fx1, fy1, fx2, fy2 = face_box
+                    for lm in hand_landmarks.landmark:
+                        px, py = int(lm.x * w), int(lm.y * h)
+                        if fx1 <= px <= fx2 and fy1 <= py <= fy2:
+                            overlap = True
+                            break
+
+
+        status_text = "OVERLAP!" if overlap else "No overlap"
+        status_color = (0, 0, 255) if overlap else (0, 255, 0)
+        cv2.putText(image, status_text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, status_color, 2)
+       
 
 
 
